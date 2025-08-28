@@ -1,0 +1,15 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Market_Project.Models;
+
+namespace Market_Project.Services.Interfaces
+{
+    public interface IGenericService<T>
+    {
+        Task<List<T>> GetAllAsync();
+        Task SaveAsync();
+    }
+}

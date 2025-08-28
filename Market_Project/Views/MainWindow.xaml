@@ -1,0 +1,105 @@
+﻿<Window x:Class="Market_Project.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Market_Project"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="1600">
+
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Margin" Value="0"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border BorderBrush="Gray" BorderThickness="0,0,0,1" Background="{TemplateBinding Background}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="DarkGray"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+        <Style TargetType="Expander">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Expander">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Background="{TemplateBinding Background}">
+                            <DockPanel>
+                                <ToggleButton x:Name="HeaderSite"
+                                          Background="Transparent"
+                                          BorderThickness="0"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          FontWeight="Bold"
+                                          DockPanel.Dock="Top"
+                                          Focusable="False"
+                                          IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+
+                                    <DockPanel LastChildFill="True">
+                                        <ContentPresenter x:Name="HeaderContent"
+                                                      ContentSource="Header"
+                                                      VerticalAlignment="Center"
+                                                      Margin="5,0"/>
+                                        <Path x:Name="Arrow"
+                                          DockPanel.Dock="Right"
+                                          VerticalAlignment="Center"
+                                          HorizontalAlignment="Right"
+                                          Margin="5,0,5,0"
+                                          Fill="Black"
+                                          Data="M 0 0 L 4 4 L 0 8 Z"/>
+                                    </DockPanel>
+                                </ToggleButton>
+                                <ContentPresenter x:Name="ExpandSite"
+                                              DockPanel.Dock="Bottom"
+                                              Focusable="False"
+                                              Visibility="Collapsed"/>
+                            </DockPanel>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded" Value="True">
+                                <Setter TargetName="ExpandSite" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="Arrow" Property="RenderTransform">
+                                    <Setter.Value>
+                                        <RotateTransform Angle="90" CenterX="2" CenterY="4"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    <DockPanel>
+        <StackPanel 
+            x:Name="MainStackPanel"
+            DockPanel.Dock="Left"
+            Width="200" 
+            Background="AliceBlue">
+            <Expander Header="Products">
+                <StackPanel>
+                    <Button Content="Product List" Tag="ProductList"/>
+                    <Button Content="Categories" Tag="Categories"/>
+                    <Button Content="Units of Measure" Tag="Units" />
+                </StackPanel>
+            </Expander>
+        </StackPanel>
+
+        <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden" />
+    </DockPanel>
+</Window>
