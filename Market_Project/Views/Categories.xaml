@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:Market_Project.ViewModels"
-      d:DataContext="{d:DesignInstance Type=local:CategoriesViewModel}"
+      xmlns:vm="clr-namespace:Market_Project.ViewModels"
+      xmlns:vr="clr-namespace:Market_Project.ValidationRules"
+      d:DataContext="{d:DesignInstance Type=vm:CategoriesViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="Categories">
@@ -17,17 +18,27 @@
 
 
         <DataGrid 
-        Style="{StaticResource BasicDataGrid}"
-        Grid.Row="0"
-        x:Name="dataGrid"
+            Style="{StaticResource BasicDataGrid}"
+            Grid.Row="0"
+            x:Name="dataGrid"
             
-        ItemsSource="{Binding Categories}" 
-        SelectedItem="{Binding SelectedItem}">
-            
-            <DataGrid.Columns>
+            ItemsSource="{Binding Categories}" 
+            SelectedItem="{Binding SelectedItem}">
+
+            <DataGrid.Columns>  
                 
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Name" EditingElementStyle="{StaticResource DataGrid_Validation}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Name">
+                            <Binding.ValidationRules>
+                                <vr:NonEmptyValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
                 <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
                 
             </DataGrid.Columns>

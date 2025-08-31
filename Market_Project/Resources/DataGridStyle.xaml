@@ -7,4 +7,16 @@
         <Setter Property="HorizontalAlignment" Value="Left"/>
     </Style>
     
+    <Style x:Key="DataGrid_Validation"  TargetType="TextBox">
+        <Style.Triggers>
+            <Trigger Property="Validation.HasError" Value="True">
+                <Setter Property="ToolTip">
+                    <Setter.Value>
+                        <Binding RelativeSource="{RelativeSource Self}" Path="(Validation.Errors)[0].ErrorContent"/>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
 </ResourceDictionary>

@@ -3,8 +3,9 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      d:DataContext="{d:DesignInstance Type=local:ProductListViewModel}"
-      xmlns:local="clr-namespace:Market_Project.ViewModels" 
+      xmlns:vm="clr-namespace:Market_Project.ViewModels" 
+      xmlns:vr="clr-namespace:Market_Project.ValidationRules"
+      d:DataContext="{d:DesignInstance Type=vm:ProductListViewModel}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ProductList">
@@ -32,7 +33,17 @@
             <DataGrid.Columns>
                 
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
-                <DataGridTextColumn Header="Name" Binding="{Binding Name}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Name" EditingElementStyle="{StaticResource DataGrid_Validation}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Name">
+                            <Binding.ValidationRules>
+                                <vr:NonEmptyValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
                 <DataGridComboBoxColumn 
                     Header="Category"
                     SelectedValuePath="Id"
@@ -40,7 +51,17 @@
                     DisplayMemberPath="Name"
                     ItemsSource="{Binding Source={StaticResource CategoriesSource}}">
                 </DataGridComboBoxColumn>
-                <DataGridTextColumn Header="Stock" Binding="{Binding Stock}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Stock" EditingElementStyle="{StaticResource DataGrid_Validation}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Stock">
+                            <Binding.ValidationRules>
+                                <vr:NonNegativeValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
                 <DataGridComboBoxColumn 
                     Header="Units"
                     SelectedValuePath="Id"
@@ -48,8 +69,27 @@
                     DisplayMemberPath="Name"
                     ItemsSource="{Binding Source={StaticResource UnitsSource}}">
                 </DataGridComboBoxColumn>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Discount" Binding="{Binding Discount}"></DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Price" EditingElementStyle="{StaticResource DataGrid_Validation}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Price" >
+                            <Binding.ValidationRules>
+                                <vr:NonNegativeValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn Header="Discount" EditingElementStyle="{StaticResource DataGrid_Validation}">
+                    <DataGridTextColumn.Binding>
+                        <Binding Path="Discount" >
+                            <Binding.ValidationRules>
+                                <vr:DiscountValidationRule />
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </DataGridTextColumn.Binding>
+                </DataGridTextColumn>
+                
                 <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
 
             </DataGrid.Columns>
