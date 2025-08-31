@@ -34,10 +34,5 @@ namespace Market_Project.Views
         {
             viewModel.SaveDBChanges();
         }
-
-        private void test( object sender, RoutedEventArgs e)
-        {
-            viewModel.Products[0].Price = 22;
-        }
     }
 }

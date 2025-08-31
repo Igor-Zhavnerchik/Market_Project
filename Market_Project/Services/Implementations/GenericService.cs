@@ -17,8 +17,8 @@ namespace Market_Project.Services.Implementations
 
         public GenericService(AppDbContext db) { _db = db; }
 
-        public Task<List<T>> GetAllAsync() =>  _db.Set<T>().ToListAsync();
-        public Task SaveAsync() =>  _db.SaveChangesAsync();
+        public Task<List<T>> GetAllAsync() => _db.Set<T>().ToListAsync();
+        public Task SaveAsync() => _db.SaveChangesAsync();
        
     }
 }
