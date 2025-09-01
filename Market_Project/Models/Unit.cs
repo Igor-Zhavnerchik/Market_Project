@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,8 @@ namespace Market_Project.Models
     [Table("units_of_measure")]
     public class Unit : BaseModel
     {
-        //changeable variables
+        // Fields
+        private int _id;
         private string _name;
         private string _fullName;
         private bool _isDivisible;
@@ -22,13 +24,13 @@ namespace Market_Project.Models
         private DateTime? _updatedAt;
         private int? _updatedBy;
 
-        //model variables and data checks
+        //Model variables and data checks
         [Key]
         [Column("id")]
-        public int Id // cant be changed
-        { 
-            get;
-            private set;
+        public int Id  // cant be changed
+        {
+            get => _id;
+            set { _id = value; OnPropertyChanged(); }
         }
 
         [Column("name")]
@@ -123,7 +125,7 @@ namespace Market_Project.Models
             }
         }
 
-        //relationships
+        // Relationships
         public ICollection<Product> Products { get; set; }
     }
 }

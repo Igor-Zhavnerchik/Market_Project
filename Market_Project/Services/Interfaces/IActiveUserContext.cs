@@ -3,15 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Market_Project.Models;
 
 namespace Market_Project.Services.Interfaces
 {
-    public interface IGenericService<T>
+    internal interface IActiveUserContext
     {
-        Task<List<T>> GetAllAsync();
-        Task SaveAsync();
-        Task AddAsync(T newEntry);
+        int Id { get; set; }
+        string Name { get; set; }
 
     }
 }

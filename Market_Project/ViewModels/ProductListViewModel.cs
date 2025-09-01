@@ -4,6 +4,7 @@ using Market_Project.Services;
 using Market_Project.Services.Interfaces;
 using Market_Project.Views;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,12 +21,12 @@ namespace Market_Project.ViewModels
 {
     public class ProductListViewModel : BaseViewModel<Product>
     {
-        // services
+        // Services
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
         private readonly IUnitService _unitService;
 
-        // table data
+        // Table data
         private ObservableCollection<Product> _products;
         private ObservableCollection<Category> _categories;
         private ObservableCollection<Unit> _units;
@@ -46,7 +47,7 @@ namespace Market_Project.ViewModels
             set { _units = value; OnPropertyChanged(); }
         }
 
-        // constructor
+        // Constructor
         public ProductListViewModel(IProductService ps, ICategoryService cs, IUnitService us)
         {
             _productService = ps;
@@ -56,7 +57,7 @@ namespace Market_Project.ViewModels
             LoadData();
         }
 
-        // functions
+        // Functions
         public async void LoadData()
         {
             var ProductData = await _productService.GetAllAsync();
@@ -66,6 +67,17 @@ namespace Market_Project.ViewModels
             Products = new ObservableCollection<Product>(ProductData);
             Categories = new ObservableCollection<Category>(CategoryData);
             Units = new ObservableCollection<Unit>(UnitData);
+        }
+
+        public override void AddNewEntry()
+        {
+            NewEntry.CreatedAt = DateTime.Now;
+            NewEntry.CreatedBy = App.ServiceProvider.GetRequiredService<IActiveUserContext>().Id;
+
+            _productService.AddAsync(NewEntry);
+            Products.Add(NewEntry);
+
+            NewEntry = new Product();
         }
 
     }

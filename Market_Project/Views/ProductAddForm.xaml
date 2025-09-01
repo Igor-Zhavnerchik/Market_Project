@@ -1,0 +1,107 @@
+﻿<Window x:Class="Market_Project.Views.ProductAddForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Market_Project.ViewModels"
+        xmlns:vr="clr-namespace:Market_Project.ValidationRules"
+        d:DataContext="{d:DesignInstance Type=vm:ProductListViewModel}"
+        mc:Ignorable="d"
+        Title="CategoryAddForm" Height="400" Width="300"  ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource AddFormTextblockStyle}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource AddFormTextBoxStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource AddFormComboBoxStyle}"/>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource AddFormCheckBoxStyle}"/>
+    </Window.Resources>
+    
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Add New Product" HorizontalAlignment="Center"/>
+        <Grid HorizontalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"/>
+            <TextBox  Grid.Row="0" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="NewEntry.Name">
+                        <Binding.ValidationRules>
+                            <vr:NonEmptyValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Text="Category"  Grid.Row="1" Grid.Column="0"/>
+            <ComboBox 
+                ItemsSource="{Binding Categories}" 
+                DisplayMemberPath="Name" 
+                SelectedValuePath="Id" 
+                SelectedValue="{Binding NewEntry.CategoryId}"
+                Grid.Row="1"
+                Grid.Column="1"/>
+
+
+            <TextBlock Text="Stock"  Grid.Row="2" Grid.Column="0"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="2" Grid.Column="1">
+                <TextBox MinWidth="50">
+                    <TextBox.Text>
+                        <Binding Path="NewEntry.Stock">
+                            <Binding.ValidationRules>
+                                <vr:NonNegativeValidationRule/>
+                            </Binding.ValidationRules>
+                        </Binding>
+                    </TextBox.Text>
+                </TextBox>
+                <ComboBox 
+                     ItemsSource="{Binding Units}" 
+                     DisplayMemberPath="Name" 
+                     SelectedValuePath="Id" 
+                     SelectedValue="{Binding NewEntry.UnitId}"/>
+            </StackPanel>
+            
+            <TextBlock Text="Price" Grid.Row="3" Grid.Column="0"/>
+            <TextBox   Grid.Row="3" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="NewEntry.Price">
+                        <Binding.ValidationRules>
+                            <vr:NonNegativeValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Text="Discount"  Grid.Row="4" Grid.Column="0"/>
+            <TextBox  Grid.Row="4" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="NewEntry.Discount">
+                        <Binding.ValidationRules>
+                            <vr:DiscountValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Text="Is active"  Grid.Row="5" Grid.Column="0"/>
+            <CheckBox IsChecked="{Binding NewEntry.IsActive, Mode=TwoWay}"  Grid.Row="5" Grid.Column="1"/>
+
+
+            <Button Content="Add" Command="{Binding AddCommand}" Style="{StaticResource BasicButton}" Grid.Row="6" Grid.Column="1"/>
+        </Grid>
+    </StackPanel>
+    
+</Window>

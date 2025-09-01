@@ -1,0 +1,54 @@
+﻿<Window x:Class="Market_Project.Views.CategoryAddForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:Market_Project.ViewModels"
+        xmlns:vr="clr-namespace:Market_Project.ValidationRules"
+        d:DataContext="{d:DesignInstance Type=vm:CategoriesViewModel}"
+        mc:Ignorable="d"
+        Title="CategoryAddForm" Height="200" Width="300" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource AddFormTextblockStyle}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource AddFormTextBoxStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource AddFormComboBoxStyle}"/>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource AddFormCheckBoxStyle}"/>
+    </Window.Resources>
+    
+    <StackPanel Orientation="Vertical">
+        <TextBlock Text="Add New Category" HorizontalAlignment="Center"/>
+        <Grid HorizontalAlignment="Center">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Text="Name" Grid.Row="0" Grid.Column="0"/>
+            <TextBox  Grid.Row="0" Grid.Column="1">
+                <TextBox.Text>
+                    <Binding Path="NewEntry.Name">
+                        <Binding.ValidationRules>
+                            <vr:NonEmptyValidationRule/>
+                        </Binding.ValidationRules>
+                    </Binding>
+                </TextBox.Text>
+            </TextBox>
+
+            <TextBlock Text="Is active" Grid.Row="1" Grid.Column="0"/>
+            <CheckBox IsChecked="{Binding NewEntry.IsActive, Mode=TwoWay}" Grid.Row="1" Grid.Column="1"/>
+            
+            <Button Content="Add" Command="{Binding AddCommand}" Style="{StaticResource BasicButton}" Grid.Row="2" Grid.Column="1" />
+        </Grid>
+    </StackPanel>
+    
+    
+    
+</Window>

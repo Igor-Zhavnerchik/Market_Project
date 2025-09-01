@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Market_Project.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System.Reflection;
 using System.Text;
 using System.Windows;
@@ -20,13 +21,16 @@ namespace Market_Project.Views
         {
             InitializeComponent();
             MainStackPanel.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Button_Click));
+            // temp user
+            var user = App.ServiceProvider.GetRequiredService<IActiveUserContext>();
+            user.Id = 1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             if (e.OriginalSource is Button clickedButton)
             {
-                string? pageName = $"Market_Project.Views.{clickedButton.Tag as string}";
+                string? pageName = $"Market_Project.Views.{clickedButton.Tag as string}"; // workaround
                 var type = Type.GetType(pageName);
                 var page = (Page)App.ServiceProvider.GetRequiredService(type);
 

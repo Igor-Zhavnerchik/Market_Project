@@ -28,9 +28,5 @@ namespace Market_Project.Views
             viewModel = vm;
             this.DataContext = viewModel;
         }
-        private void Button_SaveChanges(object sender, RoutedEventArgs e)
-        {
-            viewModel.SaveDBChanges();
-        }
     }
 }

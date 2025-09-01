@@ -11,9 +11,6 @@ using Market_Project.Views;
 
 namespace Market_Project
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
     public partial class App : Application
     {
         public static IServiceProvider ServiceProvider { get; private set; }
@@ -29,10 +26,15 @@ namespace Market_Project
             ServiceProvider = services.BuildServiceProvider();
             var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
+
+
         }
 
         private void ConfigureServices(IServiceCollection services)
         {
+            // User Context
+            services.AddSingleton<IActiveUserContext, ActiveUserContext>();
+
             // DbContext
             services.AddDbContext<AppDbContext>(options =>
                options.UseSqlServer("Server=DESKTOP-E1FNJ59\\SQLEXPRESS;Database=MarketDB;Trusted_Connection=True;TrustServerCertificate=True;"));
@@ -44,15 +46,20 @@ namespace Market_Project
             services.AddScoped<IUnitService, UnitService>();
 
             // ViewModels
-            services.AddTransient<ProductListViewModel>();
-            services.AddTransient<CategoriesViewModel>();
-            services.AddTransient<UnitsViewModel>();
+            services.AddSingleton<ProductListViewModel>();
+            services.AddSingleton<CategoriesViewModel>();
+            services.AddSingleton<UnitsViewModel>();
 
             // Views
             services.AddTransient<MainWindow>();
             services.AddTransient<ProductList>();
             services.AddTransient<Categories>();
             services.AddTransient<Units>();
+
+            // Add Forms
+            services.AddTransient<CategoryAddForm>();
+            services.AddTransient<ProductAddForm>();
+            services.AddTransient<UnitAddForm>();
         }
     }
 

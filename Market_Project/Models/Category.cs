@@ -14,19 +14,20 @@ namespace Market_Project.Models
     [Table("categories")]
     public class Category : BaseModel
     {
-        //changable variables
+        // Fields
+        private int _id;
         private string? _name;
         private bool _isActive;
         private DateTime? _updatedAt;
         private int? _updatedBy;
 
-        //model variables and data checks
+        // Model variables and data checks
         [Key]
         [Column("id")]
         public int Id  // cant be changed
         {
-            get;
-            private set;
+            get => _id;
+            set {  _id = value; OnPropertyChanged(); }
         }
 
         [Column("name")]
@@ -92,7 +93,7 @@ namespace Market_Project.Models
             }
         }
 
-        //relationships
+        // Relationships
         public ICollection<Product> Products { get; set; }
     }
 }

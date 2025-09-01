@@ -12,15 +12,17 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Navigation;
+using Market_Project.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Market_Project.ViewModels
 {
     public class CategoriesViewModel : BaseViewModel<Category>
     {
-        // services
+        // Services
         private readonly ICategoryService _categoryService;
 
-        // table data
+        // Table data
         private ObservableCollection<Category> _categories;
         public ObservableCollection<Category> Categories
         {
@@ -28,19 +30,33 @@ namespace Market_Project.ViewModels
             set { _categories = value; OnPropertyChanged(); }
         }
 
-        // constructor
+        // Constructor
         public CategoriesViewModel(ICategoryService cs)
         {
             _categoryService = cs; 
-
             LoadData();
         }
 
-        // functions
+
+
+        // Functions
         public async void LoadData()
         {
             var CategoryData = await _categoryService.GetAllAsync();
             Categories = new ObservableCollection<Category>(CategoryData);
         }
+
+        public override void AddNewEntry()
+        {
+            NewEntry.CreatedAt = DateTime.Now;
+            NewEntry.CreatedBy = App.ServiceProvider.GetRequiredService<IActiveUserContext>().Id;
+
+            _categoryService.AddAsync(NewEntry);
+            Categories.Add(NewEntry);
+
+            NewEntry = new Category();
+        }
+
+        
     }
 }

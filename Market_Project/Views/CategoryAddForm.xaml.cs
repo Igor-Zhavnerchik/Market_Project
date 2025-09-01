@@ -1,8 +1,4 @@
-﻿using Market_Project.Data;
-using Market_Project.ViewModels;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,19 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Market_Project.Models;
 
 namespace Market_Project.Views
 {
-    public partial class Units : Page
+    public partial class CategoryAddForm : Window
     {
-        private UnitsViewModel viewModel;
-        public Units(UnitsViewModel vm)
+        public CategoryAddForm()
         {
             InitializeComponent();
-            viewModel = vm;
-            this.DataContext = viewModel;
         }
     }
 }

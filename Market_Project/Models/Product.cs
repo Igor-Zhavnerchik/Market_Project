@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -14,7 +15,8 @@ namespace Market_Project.Models
     [Table("products")]
     public class Product : BaseModel
     {
-        //changable variables
+        // Fields
+        private int _id;
         private string _name;
         private decimal _stock;
         private int _unitId;
@@ -25,13 +27,13 @@ namespace Market_Project.Models
         private DateTime? _updatedAt;
         private int? _updatedBy;
 
-        //model variables and data checks
+        // Model variables and data checks
         [Key]
         [Column("id")]
         public int Id  // cant be changed
         {
-            get; 
-            private set;
+            get => _id;
+            set { _id = value; OnPropertyChanged(); }
         }
 
         [Column("name")]
@@ -167,7 +169,7 @@ namespace Market_Project.Models
             }
         }
 
-        //relationships
+        // Relationships
         public Category Category { get; set; }
         public Unit Unit { get; set; }
     }

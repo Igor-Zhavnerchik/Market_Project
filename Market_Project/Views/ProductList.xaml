@@ -20,6 +20,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
         <DataGrid 
@@ -31,9 +32,9 @@
             SelectedItem="{Binding SelectedItem}">
             
             <DataGrid.Columns>
-                
-                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True"></DataGridTextColumn>
-                
+
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" IsReadOnly="True"/>
+
                 <DataGridTextColumn Header="Name" EditingElementStyle="{StaticResource DataGrid_Validation}">
                     <DataGridTextColumn.Binding>
                         <Binding Path="Name">
@@ -89,12 +90,18 @@
                         </Binding>
                     </DataGridTextColumn.Binding>
                 </DataGridTextColumn>
+
+                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding IsActive}"/>
                 
-                <DataGridCheckBoxColumn Header="Is Active" Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+                <DataGridTextColumn Header="Created" Binding="{Binding CreatedAt}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Created By" Binding="{Binding CreatedBy}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Updated" Binding="{Binding UpdatedAt}" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Updated By" Binding="{Binding UpdatedBy}" IsReadOnly="True"/>
 
             </DataGrid.Columns>
         </DataGrid>
 
-        <Button Grid.Row="1" Content="Save Changes" Click="Button_SaveChanges" Style="{StaticResource BasicButton}"/>
+        <Button Grid.Row="1" Content="Save Changes" Command="{Binding SaveCommand}" Style="{StaticResource BasicButton}"/>
+        <Button Grid.Row="2" Content="Add" Command="{Binding OpenAddFormCommand}" Style="{StaticResource BasicButton}"/>
     </Grid>
 </Page>

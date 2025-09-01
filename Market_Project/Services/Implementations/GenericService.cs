@@ -7,6 +7,8 @@ using Microsoft.EntityFrameworkCore;
 using Market_Project.Data;
 using Market_Project.Services.Interfaces;
 using Market_Project.Models;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Windows;
 
 namespace Market_Project.Services.Implementations
 {
@@ -19,6 +21,7 @@ namespace Market_Project.Services.Implementations
 
         public Task<List<T>> GetAllAsync() => _db.Set<T>().ToListAsync();
         public Task SaveAsync() => _db.SaveChangesAsync();
-       
+        public async Task AddAsync(T newEntry) => await _db.Set<T>().AddAsync(newEntry);
     }
 }
+

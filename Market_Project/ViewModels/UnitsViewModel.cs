@@ -1,5 +1,7 @@
 ﻿using Market_Project.Models;
+using Market_Project.Services.Implementations;
 using Market_Project.Services.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +15,7 @@ namespace Market_Project.ViewModels
     {
         private readonly IUnitService _unitService;
 
-        // table data
+        // Table data
         private ObservableCollection<Unit> _units;
         public ObservableCollection<Unit> Units
         {
@@ -21,7 +23,7 @@ namespace Market_Project.ViewModels
             set { _units = value; OnPropertyChanged(); }
         }
 
-        // constructor
+        // Constructor
         public UnitsViewModel(IUnitService us)
         {
             _unitService = us;
@@ -29,11 +31,22 @@ namespace Market_Project.ViewModels
             LoadData();
         }
 
-        // functions
+        // Functions
         public async void LoadData()
         {
             var UnitsData = await _unitService.GetAllAsync();
             Units = new ObservableCollection<Unit>(UnitsData);
+        }
+
+        public override void AddNewEntry()
+        {
+            NewEntry.CreatedAt = DateTime.Now;
+            NewEntry.CreatedBy = App.ServiceProvider.GetRequiredService<IActiveUserContext>().Id;
+
+            _unitService.AddAsync(NewEntry);
+            Units.Add(NewEntry);
+
+            NewEntry = new Unit();
         }
     }
 }
