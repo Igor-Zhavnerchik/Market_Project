@@ -7,7 +7,7 @@
         xmlns:vr="clr-namespace:Market_Project.ValidationRules"
         d:DataContext="{d:DesignInstance Type=vm:UnitsViewModel}"
         mc:Ignorable="d"
-        Title="UnitAddForm" Height="200" Width="300" ResizeMode="NoResize">
+        Title="UnitAddForm" Height="250" Width="300" ResizeMode="NoResize">
 
     <Window.Resources>
         <Style TargetType="TextBlock" BasedOn="{StaticResource AddFormTextblockStyle}"/>
@@ -21,6 +21,7 @@
         <Grid HorizontalAlignment="Center">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
                 <RowDefinition Height="30"/>
@@ -55,9 +56,12 @@
             </TextBox>
 
             <TextBlock Text="Is active" Grid.Row="2" Grid.Column="0"/>
-            <CheckBox IsChecked="{Binding NewEntry.IsActive, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
+            <CheckBox IsChecked="{Binding NewEntry.IsDivisible, Mode=TwoWay}" Grid.Row="2" Grid.Column="1"/>
 
-            <Button Content="Add" Command="{Binding AddCommand}" Style="{StaticResource BasicButton}" Grid.Row="3" Grid.Column="1" />
+            <TextBlock Text="Is divisible" Grid.Row="3" Grid.Column="0"/>
+            <CheckBox IsChecked="{Binding NewEntry.IsActive, Mode=TwoWay}" Grid.Row="3" Grid.Column="1"/>
+
+            <Button Content="Add" Command="{Binding AddCommand}" Style="{StaticResource BasicButton}" Grid.Row="4" Grid.Column="1" />
         </Grid>
     </StackPanel>
 
