@@ -10,6 +10,5 @@ namespace Market_Project.Services.Implementations
     internal class ActiveUserContext : IActiveUserContext
     {
         public int Id { get; set; }
-        public string Name { get; set; }
     }
 }

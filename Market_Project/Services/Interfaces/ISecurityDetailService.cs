@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Market_Project.Models;
 
 namespace Market_Project.Services.Interfaces
 {
-    internal interface IActiveUserContext
+    public interface ISecurityDetailService : IGenericService<SecurityDetail>
     {
-        int Id { get; set; }
+        Task<SecurityDetail?> GetSecurityDetail(string _login);
     }
 }

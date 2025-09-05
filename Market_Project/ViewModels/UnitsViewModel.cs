@@ -13,6 +13,7 @@ namespace Market_Project.ViewModels
 {
     public class UnitsViewModel : BaseViewModel<Unit>
     {
+        // Services
         private readonly IUnitService _unitService;
 
         // Table data

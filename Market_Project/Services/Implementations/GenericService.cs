@@ -12,16 +12,16 @@ using System.Windows;
 
 namespace Market_Project.Services.Implementations
 {
-    public class GenericService<T> : IGenericService<T>
-        where T : BaseModel
+    public class GenericService<ModelType> : IGenericService<ModelType>
+        where ModelType : BaseModel
     {
         protected readonly AppDbContext _db;
 
         public GenericService(AppDbContext db) { _db = db; }
 
-        public Task<List<T>> GetAllAsync() => _db.Set<T>().ToListAsync();
+        public Task<List<ModelType>> GetAllAsync() => _db.Set<ModelType>().ToListAsync();
         public Task SaveAsync() => _db.SaveChangesAsync();
-        public async Task AddAsync(T newEntry) => await _db.Set<T>().AddAsync(newEntry);
+        public async Task AddAsync(ModelType newEntry) => await _db.Set<ModelType>().AddAsync(newEntry);
     }
 }
 

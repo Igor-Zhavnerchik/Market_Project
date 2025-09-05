@@ -24,8 +24,10 @@ namespace Market_Project
             ConfigureServices(services);
 
             ServiceProvider = services.BuildServiceProvider();
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+
+
+            var LoginWindow = ServiceProvider.GetRequiredService<LoginWindow>();
+            LoginWindow.Show();
 
 
         }
@@ -36,21 +38,25 @@ namespace Market_Project
             services.AddSingleton<IActiveUserContext, ActiveUserContext>();
 
             // DbContext
-            services.AddDbContext<AppDbContext>(options =>
-               options.UseSqlServer("Server=DESKTOP-E1FNJ59\\SQLEXPRESS;Database=MarketDB;Trusted_Connection=True;TrustServerCertificate=True;"));
+            string connectionString = "Server=DESKTOP-E1FNJ59\\SQLEXPRESS;Database=MarketDB;Trusted_Connection=True;TrustServerCertificate=True;";
+            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(connectionString));
 
             // Services
             services.AddTransient(typeof(IGenericService<>), typeof(GenericService<>));
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IUnitService, UnitService>();
+            services.AddScoped<ISecurityDetailService, SecurityDetailService>();
 
             // ViewModels
+            services.AddTransient<LoginViewModel>();
             services.AddSingleton<ProductListViewModel>();
             services.AddSingleton<CategoriesViewModel>();
             services.AddSingleton<UnitsViewModel>();
+           
 
             // Views
+            services.AddTransient<LoginWindow>();
             services.AddTransient<MainWindow>();
             services.AddTransient<ProductList>();
             services.AddTransient<Categories>();

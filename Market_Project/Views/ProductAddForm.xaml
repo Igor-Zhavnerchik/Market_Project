@@ -10,12 +10,12 @@
         Title="CategoryAddForm" Height="400" Width="300"  ResizeMode="NoResize">
 
     <Window.Resources>
-        <Style TargetType="TextBlock" BasedOn="{StaticResource AddFormTextblockStyle}"/>
-        <Style TargetType="TextBox" BasedOn="{StaticResource AddFormTextBoxStyle}"/>
-        <Style TargetType="ComboBox" BasedOn="{StaticResource AddFormComboBoxStyle}"/>
-        <Style TargetType="CheckBox" BasedOn="{StaticResource AddFormCheckBoxStyle}"/>
+        <Style TargetType="TextBlock" BasedOn="{StaticResource FormTextblockStyle}"/>
+        <Style TargetType="TextBox" BasedOn="{StaticResource FormTextBoxStyle}"/>
+        <Style TargetType="ComboBox" BasedOn="{StaticResource FormComboBoxStyle}"/>
+        <Style TargetType="CheckBox" BasedOn="{StaticResource FormCheckBoxStyle}"/>
     </Window.Resources>
-    
+
     <StackPanel Orientation="Vertical">
         <TextBlock Text="Add New Product" HorizontalAlignment="Center"/>
         <Grid HorizontalAlignment="Center">

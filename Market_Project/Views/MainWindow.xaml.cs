@@ -21,9 +21,6 @@ namespace Market_Project.Views
         {
             InitializeComponent();
             MainStackPanel.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Button_Click));
-            // temp user
-            var user = App.ServiceProvider.GetRequiredService<IActiveUserContext>();
-            user.Id = 1;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

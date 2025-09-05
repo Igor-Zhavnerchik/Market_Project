@@ -15,14 +15,12 @@ namespace Market_Project.Models
 {
     public class UserModel : BaseModel
     {
-        // Common fields
-       
+        // Common UserModel fields
         private bool _isActive;
         private DateTime? _updatedAt;
         private int? _updatedBy;
 
-        // Common Model variables and data checks
-       
+        // Common UserModel variables and data checks
         [Column("is_active")]
         public bool IsActive // can be changed only in checkbox
         {
@@ -71,6 +69,12 @@ namespace Market_Project.Models
             }
         }
 
+        // Common UserModel relationships
+        Staff StaffCreated { get; set; }
+        Staff? StaffUpdated { get; set; }
+
+
+        // INotifyPropertyChanged UserModel implementation
         public override void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             if(Id != 0  && !(propertyName is nameof(Id) or nameof(UpdatedBy) or nameof(UpdatedAt)))

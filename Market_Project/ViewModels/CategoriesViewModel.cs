@@ -37,8 +37,6 @@ namespace Market_Project.ViewModels
             LoadData();
         }
 
-
-
         // Functions
         public async void LoadData()
         {
@@ -55,8 +53,6 @@ namespace Market_Project.ViewModels
             Categories.Add(NewEntry);
 
             NewEntry = new Category();
-        }
-
-        
+        } 
     }
 }

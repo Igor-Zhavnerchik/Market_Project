@@ -7,11 +7,11 @@ using Market_Project.Models;
 
 namespace Market_Project.Services.Interfaces
 {
-    public interface IGenericService<T>
+    public interface IGenericService<ModelType>
     {
-        Task<List<T>> GetAllAsync();
+        Task<List<ModelType>> GetAllAsync();
         Task SaveAsync();
-        Task AddAsync(T newEntry);
+        Task AddAsync(ModelType newEntry);
 
     }
 }

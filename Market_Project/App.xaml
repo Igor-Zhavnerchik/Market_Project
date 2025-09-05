@@ -7,7 +7,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Resources/Buttons.xaml"/>
                 <ResourceDictionary Source="Resources/DataGridStyle.xaml"/>
-                <ResourceDictionary Source="Resources/AddFormStyles.xaml"/>
+                <ResourceDictionary Source="Resources/FormStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
